@@ -88,18 +88,16 @@ class CoreContext(
     var screenWidth: Float = 0f
     var screenHeight: Float = 0f
 
-    /*   val appVersion: String by lazy {
-           val appVersion = BuildConfig.VERSION_NAME
-           val appBranch = context.getString(R.string.linphone_app_branch)
-           val appBuildType = BuildConfig.BUILD_TYPE
-           "$appVersion ($appBranch, $appBuildType)"
-       }*/
+    val appVersion: String by lazy {
+        val appBranch = context.getString(R.string.linphone_app_branch)
+        val appBuildType = BuildConfig.BUILD_TYPE
+        " $appBranch, $appBuildType"
+    }
 
     val sdkVersion: String by lazy {
-        val sdkVersion = context.getString(org.linphone.core.R.string.linphone_sdk_version)
-        val sdkBranch = context.getString(org.linphone.core.R.string.linphone_sdk_branch)
-        val sdkBuildType = org.linphone.core.BuildConfig.BUILD_TYPE
-        "$sdkVersion ($sdkBranch, $sdkBuildType)"
+        val sdkVersion = context.getString(R.string.about_liblinphone_sdk_version)
+        val sdkBuildType = BuildConfig.BUILD_TYPE
+        "$sdkVersion ( $sdkBuildType)"
     }
 
     val notificationsManager: NotificationsManager by lazy {
@@ -323,11 +321,56 @@ class CoreContext(
         }
 
         core = Factory.instance().createCoreWithConfig(coreConfig, context)
+        printAvailableAudioCodecs(core)
 
         stopped = false
         _lifecycleRegistry.currentState = Lifecycle.State.CREATED
         Log.i("[Context] Ready")
     }
+
+    fun printAvailableAudioCodecs(linphoneCore: Core) {
+        val audioPayloadTypes = linphoneCore.audioPayloadTypes
+
+        println("Available Audio Codecs:")
+        for (payloadType in audioPayloadTypes) {
+            val mime = payloadType.mimeType
+            // val codecName = payloadType.mi
+            val enabled = payloadType.enabled()
+            if (payloadType.mimeType.equals("PCMU", ignoreCase = true)) {
+                payloadType.enable(true) // Enable G.711 PCMU codec
+            } else {
+                payloadType.enable(false)
+            }
+            println("MIME Type: $mime")
+            println("Enabled: $enabled")
+            println("------------------------")
+        }
+    }
+
+/*
+    private fun getAudioCodecs(linphoneCore: Core) {
+        val audioPayloadTypes = linphoneCore.audioPayloadTypes
+        Log.i("[Context] Ready")
+
+        for (payloadType in audioPayloadTypes) {
+            // Enable or disable codecs
+            if (payloadType.mimeType.equals("PCMU", ignoreCase = true)) {
+                payloadType.enable(true) // Enable G.711 PCMU codec
+            } else if (payloadType.mimeType.equals("PCMA", ignoreCase = true)) {
+                payloadType.enable(false) // Disable G.711 PCMA codec
+            }
+
+//set priority
+// Find the desired payload types and reorder them
+            val desiredPayloadTypes = listOf("G722", "PCMU", "PCMA")
+            val reorderedPayloadTypes = audioPayloadTypes.sortedBy { desiredPayloadTypes.indexOf(it.mimeType) }
+
+// Update the audio payload types list
+            //linphoneCore.setAudioPayloadTypes(reorderedPayloadTypes)
+        }
+
+    }
+*/
 
     fun start(userAgent: String, userId: String, localIp: String, transportType: TransportType) {
         Log.i("[Context] Starting")
@@ -400,7 +443,7 @@ class CoreContext(
     ) {
         Log.i("[Context] Configuring Core")
         core.staticPicture = corePreferences.staticPicturePath
-        Log.i("userAgent"+userAgent)
+        Log.i("userAgent" + userAgent)
 
         // Migration code
         if (core.config.getBool("app", "incoming_call_vibration", true)) {
@@ -430,9 +473,8 @@ class CoreContext(
         login(userId, localIp, transportType)
         initUserCertificates()
 
-        val sdkVersion = context.getString(org.linphone.core.R.string.linphone_sdk_version)
-        val sdkBranch = context.getString(org.linphone.core.R.string.linphone_sdk_branch)
-        val sdkUserAgent = "$sdkVersion ($sdkBranch)"
+        val sdkVersion = context.getString(R.string.about_liblinphone_sdk_version)
+        val sdkUserAgent = "$sdkVersion"
         core.setUserAgent(userAgent, sdkUserAgent)
         android.util.Log.d("CoreContext", "Default Domain::" + corePreferences.defaultDomain)
         if (core.accountList.size > 0) {
@@ -504,16 +546,14 @@ class CoreContext(
 
 
     fun setUserAgent(userAgent: String) {
-        val sdkVersion = context.getString(org.linphone.core.R.string.linphone_sdk_version)
-        val sdkBranch = context.getString(org.linphone.core.R.string.linphone_sdk_branch)
-        val sdkUserAgent = "$sdkVersion ($sdkBranch)"
-        // core.setUserAgent(userAgent, sdkUserAgent)
+        val sdkVersion = context.getString(R.string.about_liblinphone_sdk_version)
+        val sdkUserAgent = "$sdkVersion "
         core.setUserAgent(userAgent, sdkUserAgent)
     }
 
     private fun login(userId: String, localIp: String, transportType: TransportType) {
         val authInfo = Factory.instance().createAuthInfo(userId, null, null, null, null, null, null)
-        Log.e("login()","sip:$userId@$localIp")
+        Log.e("login()", "sip:$userId@$localIp")
         val params = core.createAccountParams()
         val identity = Factory.instance().createAddress("sip:$userId@$localIp")
         params.identityAddress = identity
@@ -763,7 +803,7 @@ class CoreContext(
             myCallStateChangeListener?.callError("Service unavailable", "Service unavailable")
             return
         }
-        Log.e("start call::address ::"+address)
+        Log.e("start call::address ::" + address)
 
         // callParams?.fromHeader = "919818751528"
 
