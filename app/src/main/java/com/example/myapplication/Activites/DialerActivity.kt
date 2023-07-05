@@ -15,7 +15,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.bng.linphoneupdated.LinphoneApplication
 import com.bng.linphoneupdated.LinphoneApplication.Companion.coreContext
 import com.bng.linphoneupdated.LinphoneApplication.Companion.createConfig
-import com.bng.linphoneupdated.LinphoneApplication.Companion.isSpeakerOn
 import com.bng.linphoneupdated.core.CoreCallStateChangeListener
 import com.example.myapplication.R
 import java.util.regex.Pattern
@@ -453,7 +452,7 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
 
     }
 
-    override fun callReleased(message: String) {
+    override fun callReleased(message: String, protocolCode: Int) {
         coreContext.hangUp()
 
     }

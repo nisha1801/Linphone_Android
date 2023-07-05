@@ -2,7 +2,7 @@ package com.bng.linphoneupdated.core
 
 
 interface CoreCallStateChangeListener {
-    fun callIdle(message: String)
+    fun callIdle(message: String,protocolCode: Int)
     fun callOutgoingInit(message: String)
     fun callOutgoingRinging(message: String)
     fun callOutgoingEarlyMedia(message: String)
@@ -12,8 +12,8 @@ interface CoreCallStateChangeListener {
     fun callResuming(message: String)
     fun callStreamsRunning(message: String)
     fun callError(message: String,reason:String)
-    fun callReleased(message: String)
-    fun callEnd(message: String)
+    fun callReleased(message: String, protocolCode: Int)
+    fun callEnd(message: String,protocolCode: Int)
     fun onMessageReceived(message: String)
 
 }

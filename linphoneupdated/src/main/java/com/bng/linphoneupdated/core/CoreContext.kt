@@ -148,7 +148,7 @@ class CoreContext(
             core: Core, call: Call, state: Call.State, message: String
         ) {
             // onCallStateChange(state.name)
-            myCallStateChangeListener?.callIdle(message)
+            myCallStateChangeListener?.callIdle(message,call.errorInfo.protocolCode)
 
             if (state == Call.State.IncomingReceived || state == Call.State.IncomingEarlyMedia) {
                 if (declineCallDueToGsmActiveCall()) {
@@ -251,13 +251,13 @@ class CoreContext(
                     }
                     callErrorMessageResourceId.value = Event(toastMessage)
                 } else if (state == Call.State.End && call.dir == Call.Dir.Outgoing && call.errorInfo.reason == Reason.Declined && core.callsNb == 0) {
-                    myCallStateChangeListener?.callEnd(message)
+                    myCallStateChangeListener?.callEnd(message,call.errorInfo.protocolCode)
                     myCallStateChangeListener = null
                     Log.i("[Context] Call has been declined")
                     val toastMessage = context.getString(R.string.call_error_declined)
                     callErrorMessageResourceId.value = Event(toastMessage)
                 } else if (state == Call.State.Released) {
-                    myCallStateChangeListener?.callReleased(message)
+                    myCallStateChangeListener?.callReleased(message,call.errorInfo.protocolCode)
                     myCallStateChangeListener = null
                     Log.i("[Context] Call has been release")
                     val toastMessage = context.getString(R.string.call_error_declined)
