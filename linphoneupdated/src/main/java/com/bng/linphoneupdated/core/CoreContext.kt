@@ -335,42 +335,21 @@ class CoreContext(
         for (payloadType in audioPayloadTypes) {
             val mime = payloadType.mimeType
             // val codecName = payloadType.mi
+            /*       if (payloadType.mimeType.equals("PCMU", ignoreCase = true)) {
+                       payloadType.enable(true) // Enable G.711 PCMU codec
+                   } else {
+                       payloadType.enable(false)
+                   }*/
             val enabled = payloadType.enabled()
-            if (payloadType.mimeType.equals("PCMU", ignoreCase = true)) {
-                payloadType.enable(true) // Enable G.711 PCMU codec
-            } else {
-                payloadType.enable(false)
-            }
             println("MIME Type: $mime")
             println("Enabled: $enabled")
             println("------------------------")
         }
     }
 
-/*
-    private fun getAudioCodecs(linphoneCore: Core) {
-        val audioPayloadTypes = linphoneCore.audioPayloadTypes
-        Log.i("[Context] Ready")
-
-        for (payloadType in audioPayloadTypes) {
-            // Enable or disable codecs
-            if (payloadType.mimeType.equals("PCMU", ignoreCase = true)) {
-                payloadType.enable(true) // Enable G.711 PCMU codec
-            } else if (payloadType.mimeType.equals("PCMA", ignoreCase = true)) {
-                payloadType.enable(false) // Disable G.711 PCMA codec
-            }
-
-//set priority
-// Find the desired payload types and reorder them
-            val desiredPayloadTypes = listOf("G722", "PCMU", "PCMA")
-            val reorderedPayloadTypes = audioPayloadTypes.sortedBy { desiredPayloadTypes.indexOf(it.mimeType) }
-
-// Update the audio payload types list
-            //linphoneCore.setAudioPayloadTypes(reorderedPayloadTypes)
-        }
-
+    fun removeOnlyListener() {
+        core.removeListener(listener)
     }
-*/
 
     fun start(userAgent: String, userId: String, localIp: String, transportType: TransportType) {
         Log.i("[Context] Starting")
@@ -420,7 +399,7 @@ class CoreContext(
         if (::phoneStateListener.isInitialized) {
             phoneStateListener.destroy()
         }
-        notificationsManager.destroy()
+      //  notificationsManager.destroy()
         //contactsManager.destroy()
         if (TelecomHelper.exists()) {
             Log.i("[Context] Destroying telecom helper")
@@ -428,6 +407,15 @@ class CoreContext(
             TelecomHelper.destroy()
         }
 
+        core.stop()
+        core.removeListener(listener)
+        stopped = true
+        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+        loggingService.removeListener(loggingServiceListener)
+    }
+
+    fun stopCore(){
+        Log.i("[Context] Stopping")
         core.stop()
         core.removeListener(listener)
         stopped = true
