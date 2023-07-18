@@ -149,7 +149,7 @@ class CoreContext(
             core: Core, call: Call, state: Call.State, message: String
         ) {
             // onCallStateChange(state.name)
-            myCallStateChangeListener?.callIdle(message,call.errorInfo.protocolCode)
+            myCallStateChangeListener?.callIdle(message, call.errorInfo.protocolCode)
 
             if (state == Call.State.IncomingReceived || state == Call.State.IncomingEarlyMedia) {
                 if (declineCallDueToGsmActiveCall()) {
@@ -236,7 +236,7 @@ class CoreContext(
             } else if (state == Call.State.End || state == Call.State.Error || state == Call.State.Released) {
                 if (state == Call.State.Error) {
 
-                    myCallStateChangeListener?.callError(message, call.errorInfo.reason.toString())
+                    myCallStateChangeListener?.callError(message, call.errorInfo.protocolCode)
                     myCallStateChangeListener = null
 
                     Log.w("[Context] Call error reason is ${call.errorInfo.protocolCode} / ${call.errorInfo.reason} / ${call.errorInfo.phrase}")
@@ -252,13 +252,13 @@ class CoreContext(
                     }
                     callErrorMessageResourceId.value = Event(toastMessage)
                 } else if (state == Call.State.End && call.dir == Call.Dir.Outgoing && call.errorInfo.reason == Reason.Declined && core.callsNb == 0) {
-                    myCallStateChangeListener?.callEnd(message,call.errorInfo.protocolCode)
+                    myCallStateChangeListener?.callEnd(message, call.errorInfo.protocolCode)
                     myCallStateChangeListener = null
                     Log.i("[Context] Call has been declined")
                     val toastMessage = context.getString(R.string.call_error_declined)
                     callErrorMessageResourceId.value = Event(toastMessage)
                 } else if (state == Call.State.Released) {
-                    myCallStateChangeListener?.callReleased(message,call.errorInfo.protocolCode)
+                    myCallStateChangeListener?.callReleased(message, call.errorInfo.protocolCode)
                     myCallStateChangeListener = null
                     Log.i("[Context] Call has been release")
                     val toastMessage = context.getString(R.string.call_error_declined)
@@ -400,7 +400,7 @@ class CoreContext(
         if (::phoneStateListener.isInitialized) {
             phoneStateListener.destroy()
         }
-      //  notificationsManager.destroy()
+        //  notificationsManager.destroy()
         //contactsManager.destroy()
         if (TelecomHelper.exists()) {
             Log.i("[Context] Destroying telecom helper")
@@ -415,7 +415,7 @@ class CoreContext(
         loggingService.removeListener(loggingServiceListener)
     }
 
-    fun stopCore(){
+    fun stopCore() {
         Log.i("[Context] Stopping")
         core.stop()
         core.removeListener(listener)
@@ -789,7 +789,7 @@ class CoreContext(
             Log.e("[Context] Network unreachable, abort outgoing call")
             callErrorMessageResourceId.value =
                 Event(context.getString(R.string.call_error_network_unreachable))
-            myCallStateChangeListener?.callError("Service unavailable", "Service unavailable")
+            myCallStateChangeListener?.callError("Network unreachable", 500)
             return
         }
         Log.e("start call::address ::" + address)

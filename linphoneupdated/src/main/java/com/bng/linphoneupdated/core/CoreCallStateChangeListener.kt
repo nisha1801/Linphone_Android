@@ -11,7 +11,7 @@ interface CoreCallStateChangeListener {
     fun callPaused(message: String)
     fun callResuming(message: String)
     fun callStreamsRunning(message: String)
-    fun callError(message: String,reason:String)
+    fun callError(message: String,protocolCode:Int)
     fun callReleased(message: String, protocolCode: Int)
     fun callEnd(message: String,protocolCode: Int)
     fun onMessageReceived(message: String)
