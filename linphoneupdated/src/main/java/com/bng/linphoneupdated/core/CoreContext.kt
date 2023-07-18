@@ -63,6 +63,7 @@ class CoreContext(
     service: CoreService? = null,
     useAutoStartDescription: Boolean = false
 ) : LifecycleOwner, ViewModelStoreOwner {
+
     private val _lifecycleRegistry = LifecycleRegistry(this)
 
     override fun getLifecycle(): Lifecycle {

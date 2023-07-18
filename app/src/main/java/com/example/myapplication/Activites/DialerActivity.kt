@@ -411,7 +411,10 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
         }
     }
 */
-    override fun callIdle(message: String) {
+    fun callIdle(message: String) {
+    }
+
+    override fun callIdle(message: String, protocolCode: Int) {
     }
 
     override fun callOutgoingInit(message: String) {
@@ -457,7 +460,11 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
 
     }
 
-    override fun callEnd(message: String) {
+    override fun callEnd(message: String, protocolCode: Int) {
+        TODO("Not yet implemented")
+    }
+
+    fun callEnd(message: String) {
 
         coreContext.hangUp()
 
