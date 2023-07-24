@@ -424,6 +424,10 @@ class CoreContext(
         loggingService.removeListener(loggingServiceListener)
     }
 
+    fun refreshRegister() {
+        core.refreshRegisters()
+    }
+
     private fun configureCore(
         userAgent: String,
         userId: String,
