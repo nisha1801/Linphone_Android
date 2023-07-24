@@ -450,10 +450,11 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
 
     }
 
-    override fun callError(message: String, reason: String) {
-        coreContext.hangUp()
+    override fun callError(message: String, protocolCode: Int) {
 
     }
+
+
 
     override fun callReleased(message: String, protocolCode: Int) {
         coreContext.hangUp()
@@ -461,13 +462,7 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
     }
 
     override fun callEnd(message: String, protocolCode: Int) {
-        TODO("Not yet implemented")
-    }
-
-    fun callEnd(message: String) {
-
         coreContext.hangUp()
-
     }
 
     override fun onMessageReceived(message: String) {
