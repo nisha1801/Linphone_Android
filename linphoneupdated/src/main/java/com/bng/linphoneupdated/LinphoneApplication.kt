@@ -129,8 +129,13 @@ class LinphoneApplication {
 
         public fun pauseOrResumeCall(pause: Boolean) {
             try {
-                if (coreContext.core != null) {
-                    val currentCall: Call? = coreContext.core.currentCall
+                if (coreContext.core.callsNb == 0) return
+                val call =
+                    if (coreContext.core.currentCall != null) coreContext.core.currentCall else coreContext.core.calls[0]
+                call ?: return
+
+                if (call != null) {
+                    // val currentCall: Call? = coreContext.core.currentCall
 
                     /*if (pause) {
                     val currentCall: Call? = coreContext.core.currentCall
@@ -157,12 +162,14 @@ class LinphoneApplication {
 
                 }*/
 
-                    if (currentCall?.state != Call.State.Paused && currentCall?.state != Call.State.Pausing) {
+                    if (call?.state != Call.State.Paused && call?.state != Call.State.Pausing) {
                         // If our call isn't paused, let's pause it
-                        currentCall?.pause()
-                    } else if (currentCall?.state != Call.State.Resuming) {
+                        Log.d("Linphone Application:", "state::pause::" + call?.state)
+                        call?.pause()
+                    } else if (call?.state != Call.State.Resuming) {
                         // Otherwise let's resume it
-                        currentCall?.resume()
+                        Log.d("Linphone Application:", "state::resuming::" + call?.state)
+                        call?.resume()
                     }
                 }
             } catch (e: Exception) {
