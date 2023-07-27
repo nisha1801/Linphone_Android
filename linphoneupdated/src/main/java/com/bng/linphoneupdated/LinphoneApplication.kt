@@ -164,12 +164,15 @@ class LinphoneApplication {
 
                     if (call?.state != Call.State.Paused && call?.state != Call.State.Pausing) {
                         // If our call isn't paused, let's pause it
-                        Log.d("Linphone Application:", "state::pause::" + call?.state)
+                        println("Call State: $call?.state")
+
                         call?.pause()
                     } else if (call?.state != Call.State.Resuming) {
                         // Otherwise let's resume it
-                        Log.d("Linphone Application:", "state::resuming::" + call?.state)
+                        println("Call State: $call?.state")
                         call?.resume()
+                    }else{
+                        println("Call State: $call?.state")
                     }
                 }
             } catch (e: Exception) {

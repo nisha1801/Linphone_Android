@@ -12,6 +12,9 @@ use_rls_presence=1
 [video]
 size=qvga
 
+[audio]
+android_disable_audio_focus_requests=1
+
 [app]
 tunnel=disabled
 push_notification=1
