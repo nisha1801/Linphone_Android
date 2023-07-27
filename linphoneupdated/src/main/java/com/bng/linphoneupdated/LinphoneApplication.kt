@@ -29,7 +29,7 @@ import com.bng.linphoneupdated.utils.LinphoneUtils
 import org.linphone.core.*
 import java.util.*
 
-class LinphoneApplication{
+class LinphoneApplication {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var corePreferences: CorePreferences
@@ -47,7 +47,7 @@ class LinphoneApplication{
         }
 
         @JvmStatic
-       public fun createConfig(context: Context) {
+        public fun createConfig(context: Context) {
             if (::corePreferences.isInitialized) {
                 return
             }
@@ -112,11 +112,7 @@ class LinphoneApplication{
                 if (currentAudioDevice != null) {
                     if (currentAudioDevice!!.type == AudioDevice.Type.Speaker) {
                         AudioRouteUtils.routeAudioToEarpiece(null, true)
-                    } else if (currentAudioDevice!!.type == AudioDevice.Type.Headphones
-                        || currentAudioDevice!!.type == AudioDevice.Type.Headset
-                        || currentAudioDevice!!.type == AudioDevice.Type.Earpiece
-                        || currentAudioDevice!!.type == AudioDevice.Type.HearingAid
-                    ) {
+                    } else if (currentAudioDevice!!.type == AudioDevice.Type.Headphones || currentAudioDevice!!.type == AudioDevice.Type.Headset || currentAudioDevice!!.type == AudioDevice.Type.Earpiece || currentAudioDevice!!.type == AudioDevice.Type.HearingAid) {
                         AudioRouteUtils.routeAudioToHeadset(null, true)
                     } else if (currentAudioDevice!!.type == AudioDevice.Type.Bluetooth) {
                         AudioRouteUtils.routeAudioToBluetooth(null, true)
@@ -132,8 +128,11 @@ class LinphoneApplication{
         }
 
         public fun pauseOrResumeCall(pause: Boolean) {
-            if (coreContext.core != null) {
-                if (pause) {
+            try {
+                if (coreContext.core != null) {
+                    val currentCall: Call? = coreContext.core.currentCall
+
+                    /*if (pause) {
                     val currentCall: Call? = coreContext.core.currentCall
                     if (currentCall != null) {
                         coreContext.core.currentCall!!.pause()
@@ -154,13 +153,25 @@ class LinphoneApplication{
                             //  coreContext.core.currentCall!!.resume()
                         }
                     }
+
+
+                }*/
+
+                    if (currentCall?.state != Call.State.Paused && currentCall?.state != Call.State.Pausing) {
+                        // If our call isn't paused, let's pause it
+                        currentCall?.pause()
+                    } else if (currentCall?.state != Call.State.Resuming) {
+                        // Otherwise let's resume it
+                        currentCall?.resume()
+                    }
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
 
         public fun getCallsInState(
-            lc: Core?,
-            states: Collection<Call.State?>
+            lc: Core?, states: Collection<Call.State?>
         ): List<Call> {
             val foundCalls: MutableList<Call> = java.util.ArrayList<Call>()
             for (call in lc!!.calls) {
@@ -200,22 +211,15 @@ class LinphoneApplication{
             if (::coreContext.isInitialized && !coreContext.stopped) {
                 return false
             }
-            coreContext =
-                CoreContext(
-                    context,
-                    corePreferences.config,
-                    service,
-                    useAutoStartDescription
-                )
+            coreContext = CoreContext(
+                context, corePreferences.config, service, useAutoStartDescription
+            )
 
             return true
         }
 
         public fun startCore(
-            userAgent: String,
-            userId: String,
-            localIp: String,
-            transportType: Int
+            userAgent: String, userId: String, localIp: String, transportType: Int
         ) {
             var transport: TransportType = TransportType.Tls
             if (transportType == 0) {
@@ -230,10 +234,7 @@ class LinphoneApplication{
                 transport = TransportType.Tls
             }
             coreContext.start(
-                userAgent,
-                userId,
-                localIp,
-                transport
+                userAgent, userId, localIp, transport
             )
         }
 
@@ -243,11 +244,11 @@ class LinphoneApplication{
     }
 
 
-   /* override fun onCreate() {
-        super.onCreate()
-        Log.i("Linphone App", "Application is being created")
-        //val appName = getString(R.string.app_name)
-        // Log.i("[$appName]", "Application is being created")
-        createConfig(applicationContext)
-    }*/
+    /* override fun onCreate() {
+         super.onCreate()
+         Log.i("Linphone App", "Application is being created")
+         //val appName = getString(R.string.app_name)
+         // Log.i("[$appName]", "Application is being created")
+         createConfig(applicationContext)
+     }*/
 }

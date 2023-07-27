@@ -787,7 +787,6 @@ class CoreContext(
         address: Address,
         callParams: CallParams? = null,
         forceZRTP: Boolean = false,
-        //localAddress: Address? = Factory.instance().createAddress("sip:919711667661@192.168.1.63")
     ) {
         if (!core.isNetworkReachable) {
             Log.e("[Context] Network unreachable, abort outgoing call")

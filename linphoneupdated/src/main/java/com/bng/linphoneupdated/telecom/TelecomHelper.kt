@@ -191,47 +191,6 @@ class TelecomHelper private constructor(context: Context) {
         return account
     }
 
-
-   /* fun createAccount(context: Context): PhoneAccount {
-        val accountHandle = PhoneAccountHandle(
-            ComponentName(context, TelecomConnectionService::class.java),
-            context.packageName
-        )
-        // Take care that identity may be parsed, otherwise Android OS may crash during startup
-        // and user will have to do a factory reset...
-        Log.d("Telecom Helper", "createAccount::")
-          val identity = coreContext.core.defaultAccount?.params?.identityAddress?.asStringUriOnly()
-              ?: coreContext.core.createPrimaryContactParsed()?.asStringUriOnly()
-              ?: "sip:linphone.android@sip.linphone.org"
-        *//*   account?.params?.identityAddress = LinphoneApplication.coreContext.core.interpretUrl(
-               "919818751528@" + localAddress, LinphoneUtils.applyInternationalPrefix()
-           )*//*
-//        var identity = coreContext.core.interpretUrl(
-//            "919818751528@" + "192.168.1.63", LinphoneUtils.applyInternationalPrefix()
-//        )
-
-        val address = Uri.parse(identity?.asStringUriOnly())
-            ?: throw Exception("[Telecom Helper] Identity address for phone account is null!")
-        val account = PhoneAccount.builder(accountHandle, context.getString(R.string.app_name))
-            .setAddress(address)
-            .setIcon(Icon.createWithResource(context, R.drawable.linphone_logo_tinted))
-            .setCapabilities(PhoneAccount.CAPABILITY_SELF_MANAGED)
-            .setHighlightColor(context.getColor(R.color.primary_color))
-            .setShortDescription(context.getString(R.string.app_description))
-            .setSupportedUriSchemes(listOf(PhoneAccount.SCHEME_SIP))
-            .build()
-
-        try {
-            telecomManager.registerPhoneAccount(account)
-            Log.i("[Telecom Helper] Phone account created: $account")
-        } catch (uoe: UnsupportedOperationException) {
-            Log.e("[Telecom Helper] Unsupported Operation Exception: $uoe")
-        } catch (e: Exception) {
-            Log.e("[Telecom Helper] Exception: $e")
-        }
-        return account
-    }*/
-
     private fun onIncomingCall(call: Call) {
         Log.i("[Telecom Helper] Incoming call received from ${call.remoteAddress.asStringUriOnly()}")
 
