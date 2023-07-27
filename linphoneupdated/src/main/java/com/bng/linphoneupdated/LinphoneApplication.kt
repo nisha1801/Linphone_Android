@@ -95,7 +95,7 @@ class LinphoneApplication {
                 address!!.transport = TransportType.Tls
             }
             if (address == null) {
-                Log.e("[Context] Failed to parse $stringAddress", "abort outgoing call")
+             /*   Log.e("[Context] Failed to parse $stringAddress", "abort outgoing call")*/
                 //    callErrorMessageResourceId.value = Event(context.getString(org.linphone.core.R.string.call_error_network_unreachable))
                 return
             }
@@ -127,7 +127,7 @@ class LinphoneApplication {
             }
         }
 
-        public fun pauseOrResumeCall(pause: Boolean) {
+         fun pauseOrResumeCall(pause: Boolean) {
             try {
                 if (coreContext.core.callsNb == 0) return
                 val call =
@@ -161,19 +161,15 @@ class LinphoneApplication {
 
 
                 }*/
-                    println("Call State before condition checks: ${call?.state}")
+
 
                     if (call?.state != Call.State.Paused && call?.state != Call.State.Pausing) {
                         // If our call isn't paused, let's pause it
-                        println("Call State not paused: $call?.state")
-
                         call?.pause()
                     } else if (call?.state != Call.State.Resuming) {
                         // Otherwise let's resume it
-                        println("Call State paused: ${call?.state}")
                         call?.resume()
                     } else {
-                        println("Call State else: ${call?.state}")
                     }
                 }
             } catch (e: Exception) {

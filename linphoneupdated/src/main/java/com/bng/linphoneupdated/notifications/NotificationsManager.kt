@@ -118,9 +118,9 @@ class NotificationsManager(private val context: Context) {
                 }
                 Call.State.End, Call.State.Error -> dismissCallNotification(call)
                 Call.State.Released -> {
-                    if (LinphoneUtils.isCallLogMissed(call.callLog)) {
+                   /* if (LinphoneUtils.isCallLogMissed(call.callLog)) {
                         //displayMissedCallNotification(call.remoteAddress)
-                    }
+                    }*/
                 }
                 else -> displayCallNotification(call)
             }

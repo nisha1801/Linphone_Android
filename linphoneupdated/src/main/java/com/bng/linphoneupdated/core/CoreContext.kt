@@ -193,7 +193,7 @@ class CoreContext(
                 myCallStateChangeListener?.callConnected(message)
 
                 if (corePreferences.automaticallyStartCallRecording) {
-                    Log.i("[Context] We were asked to start the call recording automatically")
+                 /*   Log.i("[Context] We were asked to start the call recording automatically")*/
                     call.startRecording()
                 }
                 onCallStarted()
@@ -254,7 +254,7 @@ class CoreContext(
                 } else if (state == Call.State.End && call.dir == Call.Dir.Outgoing && call.errorInfo.reason == Reason.Declined && core.callsNb == 0) {
                     myCallStateChangeListener?.callEnd(message, call.errorInfo.protocolCode)
                     myCallStateChangeListener = null
-                    Log.i("[Context] Call has been declined")
+               //     Log.i("[Context] Call has been declined")
                     val toastMessage = context.getString(R.string.call_error_declined)
                     callErrorMessageResourceId.value = Event(toastMessage)
                 } else if (state == Call.State.Released) {
@@ -311,11 +311,6 @@ class CoreContext(
 
         _lifecycleRegistry.currentState = Lifecycle.State.INITIALIZED
 
-        Log.i("=========================================")
-        Log.i("==== Linphone-android information dump ====")
-        Log.i("BUILD TYPE=${BuildConfig.BUILD_TYPE}")
-        Log.i("=========================================")
-
         if (service != null) {
             Log.i("[Context] Starting foreground service")
             notificationsManager.startForeground(service, useAutoStartDescription)
@@ -332,7 +327,6 @@ class CoreContext(
     fun printAvailableAudioCodecs(linphoneCore: Core) {
         val audioPayloadTypes = linphoneCore.audioPayloadTypes
 
-        println("Available Audio Codecs:")
         for (payloadType in audioPayloadTypes) {
             val mime = payloadType.mimeType
             // val codecName = payloadType.mi
@@ -342,13 +336,19 @@ class CoreContext(
                        payloadType.enable(false)
                    }*/
             val enabled = payloadType.enabled()
-            println("MIME Type: $mime")
-            println("Enabled: $enabled")
-            println("------------------------")
+          //  println("MIME Type: $mime")
+          //  println("Enabled: $enabled")
+          //  println("------------------------")
         }
     }
 
+    fun removeOnlyListener(mylistener: CoreListener) {
+       // core.removeListener(listener)
+        core.removeListener(mylistener)
+    }
+
     fun removeOnlyListener() {
+        // core.removeListener(listener)
         core.removeListener(listener)
     }
 
@@ -436,7 +436,7 @@ class CoreContext(
     ) {
         Log.i("[Context] Configuring Core")
         core.staticPicture = corePreferences.staticPicturePath
-        Log.i("userAgent" + userAgent)
+      //  Log.i("userAgent" + userAgent)
 
         // Migration code
         if (core.config.getBool("app", "incoming_call_vibration", true)) {
@@ -526,9 +526,6 @@ class CoreContext(
                     account.params = params
                 }
             }
-            android.util.Log.d(
-                "CoreContext", "identityAddress domain::" + account.params.identityAddress?.domain
-            )
         }
         Log.i("[Context] Core configured")
     }

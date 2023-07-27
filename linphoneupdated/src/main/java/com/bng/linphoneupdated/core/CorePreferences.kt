@@ -645,10 +645,7 @@ class CorePreferences constructor(private val context: Context) {
         val outFile = File(to)
         if (outFile.exists()) {
             if (!overrideIfExists) {
-                android.util.Log.i(
-                    context.getString(R.string.app_name),
-                    "[Preferences] File $to already exists"
-                )
+
                 return
             }
         }
