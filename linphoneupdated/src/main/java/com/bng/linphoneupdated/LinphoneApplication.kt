@@ -161,18 +161,19 @@ class LinphoneApplication {
 
 
                 }*/
+                    println("Call State before condition checks: ${call?.state}")
 
                     if (call?.state != Call.State.Paused && call?.state != Call.State.Pausing) {
                         // If our call isn't paused, let's pause it
-                        println("Call State: $call?.state")
+                        println("Call State not paused: $call?.state")
 
                         call?.pause()
                     } else if (call?.state != Call.State.Resuming) {
                         // Otherwise let's resume it
-                        println("Call State: ${call?.state}")
+                        println("Call State paused: ${call?.state}")
                         call?.resume()
                     } else {
-                        println("Call State: ${call?.state}")
+                        println("Call State else: ${call?.state}")
                     }
                 }
             } catch (e: Exception) {
