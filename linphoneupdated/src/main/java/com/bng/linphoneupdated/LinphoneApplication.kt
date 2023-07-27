@@ -169,10 +169,10 @@ class LinphoneApplication {
                         call?.pause()
                     } else if (call?.state != Call.State.Resuming) {
                         // Otherwise let's resume it
-                        println("Call State: $call?.state")
+                        println("Call State: ${call?.state}")
                         call?.resume()
-                    }else{
-                        println("Call State: $call?.state")
+                    } else {
+                        println("Call State: ${call?.state}")
                     }
                 }
             } catch (e: Exception) {
