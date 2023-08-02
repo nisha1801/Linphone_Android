@@ -20,6 +20,7 @@ chat_messages_aggregation_delay=1000
 chat_messages_aggregation=1
 verify_server_certs=1
 verify_server_cn=1
+verify_client_certs=1
 
 [sound]
 #remove this property for any application that is not Linphone public version itself

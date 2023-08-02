@@ -169,7 +169,7 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
                 var contactName = ""
                 val address = "sip:56085" + number + "@52.37.177.101:1183"
                 LinphoneApplication.startCall(address, 2)
-                //   checkAndInitiateCall(numEditText!!.text.toString(), contactName)
+                checkAndInitiateCall(numEditText!!.text.toString(), contactName)
                 //  }
             }
         }
@@ -453,7 +453,6 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
     override fun callError(message: String, protocolCode: Int) {
 
     }
-
 
 
     override fun callReleased(message: String, protocolCode: Int) {

@@ -614,14 +614,14 @@ class CorePreferences constructor(private val context: Context) {
         get() = context.filesDir.absolutePath + "/share/images/nowebcamcif.jpg"
 
     val rootCAPath: String
-        get() = context.filesDir.absolutePath + "/rootca.pem"
+        get() = context.filesDir.absolutePath + "/rootcaa.pem"
 
     fun copyAssetsFromPackage() {
         copy("linphonerc_default", configPath)
         copy("linphonerc_factory", factoryConfigPath, true)
         copy("assistant_linphone_default_values", linphoneDefaultValuesPath, true)
         copy("assistant_default_values", defaultValuesPath, true)
-        copy("rootca.pem", rootCAPath, true)
+        copy("rootcaa.pem", rootCAPath, true)
 
 //        CalloAppPrefrences calloAppPreferences = new CalloAppPrefrences();
 //        if (calloAppPreferences.getCallingServerIp().equals("103.194.44.14")) {
