@@ -193,7 +193,7 @@ class CoreContext(
                 myCallStateChangeListener?.callConnected(message)
 
                 if (corePreferences.automaticallyStartCallRecording) {
-                 /*   Log.i("[Context] We were asked to start the call recording automatically")*/
+                    /*   Log.i("[Context] We were asked to start the call recording automatically")*/
                     call.startRecording()
                 }
                 onCallStarted()
@@ -254,7 +254,7 @@ class CoreContext(
                 } else if (state == Call.State.End && call.dir == Call.Dir.Outgoing && call.errorInfo.reason == Reason.Declined && core.callsNb == 0) {
                     myCallStateChangeListener?.callEnd(message, call.errorInfo.protocolCode)
                     myCallStateChangeListener = null
-               //     Log.i("[Context] Call has been declined")
+                    //     Log.i("[Context] Call has been declined")
                     val toastMessage = context.getString(R.string.call_error_declined)
                     callErrorMessageResourceId.value = Event(toastMessage)
                 } else if (state == Call.State.Released) {
@@ -317,6 +317,8 @@ class CoreContext(
         }
 
         core = Factory.instance().createCoreWithConfig(coreConfig, context)
+        core.rootCa = corePreferences.rootCAPath
+
         printAvailableAudioCodecs(core)
 
         stopped = false
@@ -336,15 +338,16 @@ class CoreContext(
                        payloadType.enable(false)
                    }*/
             val enabled = payloadType.enabled()
-          //  println("MIME Type: $mime")
-          //  println("Enabled: $enabled")
-          //  println("------------------------")
+            //  println("MIME Type: $mime")
+            //  println("Enabled: $enabled")
+            //  println("------------------------")
         }
     }
 
     fun removeOnlyListener(mylistener: CoreListener) {
-       // core.removeListener(listener)
+        // core.removeListener(listener)
         core.removeListener(mylistener)
+        myCallStateChangeListener = null
     }
 
     fun removeOnlyListener() {
@@ -429,14 +432,11 @@ class CoreContext(
     }
 
     private fun configureCore(
-        userAgent: String,
-        userId: String,
-        localIp: String,
-        transportType: TransportType
+        userAgent: String, userId: String, localIp: String, transportType: TransportType
     ) {
         Log.i("[Context] Configuring Core")
         core.staticPicture = corePreferences.staticPicturePath
-      //  Log.i("userAgent" + userAgent)
+        //  Log.i("userAgent" + userAgent)
 
         // Migration code
         if (core.config.getBool("app", "incoming_call_vibration", true)) {
@@ -557,23 +557,9 @@ class CoreContext(
         core.defaultAccount = account
     }
 
-
-    /*   private fun computeUserAgent() {
-           val deviceName: String = corePreferences.deviceName
-           val appName: String = context.resources.getString(R.string.user_agent_app_name)
-           //  val androidVersion = BuildConfig.VERSION_NAME
-           val userAgent = "$appName ($deviceName) LinphoneSDK"
-           val sdkVersion = context.getString(org.linphone.core.R.string.linphone_sdk_version)
-           val sdkBranch = context.getString(org.linphone.core.R.string.linphone_sdk_branch)
-           val sdkUserAgent = "$sdkVersion ($sdkBranch)"
-           core.setUserAgent(userAgent, sdkUserAgent)
-       }
-   */
-
-
     private fun initUserCertificates() {
         val userCertsPath = corePreferences.userCertificatesPath
-        // core.setRootCaData(corePreferences.rootCAPath)
+        core.rootCa = corePreferences.rootCAPath
         val f = File(userCertsPath)
         if (!f.exists()) {
             if (!f.mkdir()) {
@@ -864,8 +850,7 @@ class CoreContext(
         params.x = overlayX.toInt()
         params.y = overlayY.toInt()
         params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-        val overlay = LayoutInflater.from(context)
-            .inflate(R.layout.call_overlay, null)
+        val overlay = LayoutInflater.from(context).inflate(R.layout.call_overlay, null)
 
         var initX = overlayX
         var initY = overlayY

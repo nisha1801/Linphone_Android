@@ -1,8 +1,10 @@
 package com.example.myapplication.Activites
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.WindowManager
@@ -43,6 +45,7 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
         zeroplusLayout = findViewById(R.id.pluszero)
         btndialerCall?.setAlpha(0.4f)
         setOnBtnClickListner()
+        registerUserForLinphone(this)
     }
 
     private fun setOnBtnClickListner() {
@@ -167,9 +170,15 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
                 }
 
                 var contactName = ""
-                val address = "sip:56085" + number + "@52.37.177.101:1183"
+                val address = "sip:56503919711667661" + "@52.37.177.101:1183"
                 LinphoneApplication.startCall(address, 2)
-                checkAndInitiateCall(numEditText!!.text.toString(), contactName)
+                /* address =
+                     "sip:" + sharedPrefs.getBgShortCode() + dummy + "@" + sharedPrefs.getCallingServerIp() + ":" + sharedPrefs.getCallingServerPort()
+                 val audioURL = selectedItemBackground?.audioUrl
+                 val fileName = audioURL?.substring(audioURL.lastIndexOf('/') + 1)
+              */
+                //coreContext.setUserAgent(userAgent)
+                // checkAndInitiateCall(numEditText!!.text.toString(), contactName)
                 //  }
             }
         }
@@ -466,6 +475,15 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
 
     override fun onMessageReceived(message: String) {
 
+    }
+
+    fun registerUserForLinphone(context: Context) {
+        val userId: String = "919711667661"
+        Log.d("DialerActivity", "Register user with user ID : $userId")
+        LinphoneApplication.ensureCoreExists(context, false, null, false)
+        val ip = "sip.linphone.org"//"192.168.1.63"
+        LinphoneApplication.startCore("", userId, ip, 2)
+        // DebugLogManager.getInstance().logsForDebugging(TAG, "registerUser() called")
     }
 
 }

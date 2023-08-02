@@ -618,10 +618,10 @@ class CorePreferences constructor(private val context: Context) {
 
     fun copyAssetsFromPackage() {
         copy("linphonerc_default", configPath)
-        copy("linphonerc_factory", factoryConfigPath, true)
-        copy("assistant_linphone_default_values", linphoneDefaultValuesPath, true)
-        copy("assistant_default_values", defaultValuesPath, true)
-        copy("rootcaa.pem", rootCAPath, true)
+       copy("linphonerc_factory", factoryConfigPath, true)
+     //   copy("assistant_linphone_default_values", linphoneDefaultValuesPath, true)
+      //  copy("assistant_default_values", defaultValuesPath, true)
+      //  copy("rootcaa.pem", rootCAPath, true)
 
 //        CalloAppPrefrences calloAppPreferences = new CalloAppPrefrences();
 //        if (calloAppPreferences.getCallingServerIp().equals("103.194.44.14")) {
