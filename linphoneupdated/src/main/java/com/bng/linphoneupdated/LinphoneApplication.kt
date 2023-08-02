@@ -53,7 +53,7 @@ class LinphoneApplication {
             }
 
             Factory.instance().setLogCollectionPath(context.filesDir.absolutePath)
-            Factory.instance().enableLogCollection(LogCollectionState.Disabled)
+            Factory.instance().enableLogCollection(LogCollectionState.Enabled)
 
             // For VFS
             Factory.instance().setCacheDir(context.cacheDir.absolutePath)
