@@ -170,7 +170,8 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
                 }
 
                 var contactName = ""
-                val address = "sip:56503919711667661" + "@52.37.177.101:1183"
+                //"sip:56003919711667661@52.37.177.101:1183"
+                val address = "sip:5650391979797" + "@52.37.177.101:1183"
                 LinphoneApplication.startCall(address, 2)
                 /* address =
                      "sip:" + sharedPrefs.getBgShortCode() + dummy + "@" + sharedPrefs.getCallingServerIp() + ":" + sharedPrefs.getCallingServerPort()

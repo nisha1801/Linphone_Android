@@ -148,7 +148,6 @@ class CoreContext(
         override fun onCallStateChanged(
             core: Core, call: Call, state: Call.State, message: String
         ) {
-            // onCallStateChange(state.name)
             myCallStateChangeListener?.callIdle(message, call.errorInfo.protocolCode)
 
             if (state == Call.State.IncomingReceived || state == Call.State.IncomingEarlyMedia) {
@@ -469,9 +468,9 @@ class CoreContext(
         Log.d("RootCA", "Root CA Certificate String: $rootCACertificateString")
         core.setRootCaData(rootCACertificateString)
         login(userId, localIp, transportType)
-       // initUserCertificates()
+        core.setRootCaData(rootCACertificateString)
+        // initUserCertificates()
        // Log.w("[Context] root ca path"+ corePreferences.rootCAPath)
-
 
         val sdkVersion = context.getString(R.string.about_liblinphone_sdk_version)
         val sdkUserAgent = "$sdkVersion"
