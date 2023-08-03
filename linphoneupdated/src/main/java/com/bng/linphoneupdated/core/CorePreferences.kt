@@ -616,6 +616,9 @@ class CorePreferences constructor(private val context: Context) {
     val rootCAPath: String
         get() = context.filesDir.absolutePath + "/rootcaa.pem"
 
+    // Hardcoded resource ID for the Root CA certificate in the "raw" directory
+    private val rootCACertificateResourceId = R.raw.rootcaa
+
     fun copyAssetsFromPackage() {
         copy("linphonerc_default", configPath)
        copy("linphonerc_factory", factoryConfigPath, true)
@@ -635,6 +638,31 @@ class CorePreferences constructor(private val context: Context) {
             context.filesDir.absolutePath + "/zrtp_secrets",
             context.filesDir.absolutePath + "/zrtp-secrets.db"
         )
+    }
+
+    // Function to read Root CA certificate data from the "raw" resources
+     fun readRootCACertificateData(): ByteArray {
+        val inputStream: InputStream = context.resources.openRawResource(rootCACertificateResourceId)
+        return inputStream.readBytes()
+    }
+
+    fun readRawResourceToString(resourceId: Int): String {
+        val inputStream = context.resources.openRawResource(resourceId)
+        if (inputStream != null) {
+            return inputStream.bufferedReader().use { it.readText() }
+        } else {
+            return ""
+        }
+    }
+
+    private fun inputStreamToString(inputStream: InputStream): String {
+        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+        val stringBuilder = StringBuilder()
+        var line: String?
+        while (bufferedReader.readLine().also { line = it } != null) {
+            stringBuilder.append(line)
+        }
+        return stringBuilder.toString()
     }
 
     fun getString(resource: Int): String {

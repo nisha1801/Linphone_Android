@@ -317,8 +317,9 @@ class CoreContext(
         }
 
         core = Factory.instance().createCoreWithConfig(coreConfig, context)
-        core.rootCa = corePreferences.rootCAPath
-
+      //  core.rootCa = corePreferences.rootCAPath
+      //  core.setRootCaData(corePreferences.readRawResourceToString(R.raw.rootcaa))
+       // core.rootCa = corePreferences.readRawResourceToString(R.raw.rootcaa)
         printAvailableAudioCodecs(core)
 
         stopped = false
@@ -463,8 +464,14 @@ class CoreContext(
             corePreferences.useTelecomManager = false
             corePreferences.manuallyDisabledTelecomManager = true
         }
+        val rootCACertificateString = corePreferences.readRawResourceToString(R.raw.rootcaa)
+
+        Log.d("RootCA", "Root CA Certificate String: $rootCACertificateString")
+        core.setRootCaData(rootCACertificateString)
         login(userId, localIp, transportType)
-        initUserCertificates()
+       // initUserCertificates()
+       // Log.w("[Context] root ca path"+ corePreferences.rootCAPath)
+
 
         val sdkVersion = context.getString(R.string.about_liblinphone_sdk_version)
         val sdkUserAgent = "$sdkVersion"
@@ -559,7 +566,11 @@ class CoreContext(
 
     private fun initUserCertificates() {
         val userCertsPath = corePreferences.userCertificatesPath
+
+        System.out.println("rootCAPath::"+corePreferences.rootCAPath)
         core.rootCa = corePreferences.rootCAPath
+       // core.setRootCaData(corePreferences.readRawResourceToString(R.raw.rootcaa))
+
         val f = File(userCertsPath)
         if (!f.exists()) {
             if (!f.mkdir()) {
