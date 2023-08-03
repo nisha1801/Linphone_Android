@@ -118,20 +118,20 @@ class NotificationsManager(private val context: Context) {
                 }
                 Call.State.End, Call.State.Error -> {
                     dismissCallNotification(call)
-                    if (coreContext.myCallStateChangeListener != null) {
+                   /* if (coreContext.myCallStateChangeListener != null) {
                         coreContext.myCallStateChangeListener?.callError(
                             message,
                             call.errorInfo.protocolCode
                         )
-                    }
+                    }*/
                 }
                 Call.State.Released -> {
-                    if (coreContext.myCallStateChangeListener != null) {
+                   /* if (coreContext.myCallStateChangeListener != null) {
                         coreContext.myCallStateChangeListener?.callError(
                             message,
                             call.errorInfo.protocolCode
                         )
-                    }
+                    }*/
 
                     /* if (LinphoneUtils.isCallLogMissed(call.callLog)) {
                          //displayMissedCallNotification(call.remoteAddress)
@@ -200,7 +200,7 @@ class NotificationsManager(private val context: Context) {
 
         override fun onLastCallEnded(core: Core) {
             Log.i("[Notifications Manager] Last call ended, make sure foreground service is stopped and notification removed")
-            stopCallForeground()
+          //  stopCallForeground()
         }
     }
 
