@@ -34,11 +34,11 @@ class PermissionHelper private constructor(private val context: Context) {
     private fun hasPermission(permission: String): Boolean {
         val granted = Compatibility.hasPermission(context, permission)
 
-        if (granted) {
+    /*    if (granted) {
             Log.d("[Permission Helper] Permission $permission is granted")
         } else {
             Log.w("[Permission Helper] Permission $permission is denied")
-        }
+        }*/
 
         return granted
     }

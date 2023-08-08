@@ -32,6 +32,7 @@ import android.util.Pair
 import android.view.*
 import androidx.lifecycle.*
 import androidx.loader.app.LoaderManager
+import com.bng.linphoneupdated.LinphoneApplication.Companion.coreContext
 import com.bng.linphoneupdated.LinphoneApplication.Companion.corePreferences
 import com.bng.linphoneupdated.R
 import com.bng.linphoneupdated.compatibility.Compatibility
@@ -125,7 +126,7 @@ class CoreContext(
     @JvmField
     val listener: CoreListenerStub = object : CoreListenerStub() {
         override fun onGlobalStateChanged(core: Core, state: GlobalState, message: String) {
-            Log.i("[Context] Global state changed [$state]")
+        //    Log.i("[Context] Global state changed [$state]")
             if (state == GlobalState.On) {
                 fetchContacts()
             }
@@ -135,7 +136,7 @@ class CoreContext(
         override fun onAccountRegistrationStateChanged(
             core: Core, account: Account, state: RegistrationState?, message: String
         ) {
-            Log.i("[Context] Account [${account.params.identityAddress?.asStringUriOnly()}] registration state changed [$state]")
+         /*   Log.i("[Context] Account [${account.params.identityAddress?.asStringUriOnly()}] registration state changed [$state]")*/
             if (state == RegistrationState.Ok && account == core.defaultAccount) {
                 notificationsManager.stopForegroundNotificationIfPossible()
             }
@@ -148,7 +149,7 @@ class CoreContext(
         override fun onCallStateChanged(
             core: Core, call: Call, state: Call.State, message: String
         ) {
-            Log.i("[Context] on Call State Changed [$state]")
+          //  Log.i("[Context] on Call State Changed [$state]")
             myCallStateChangeListener?.callIdle(message, call.errorInfo.protocolCode)
 
             if (state == Call.State.IncomingReceived || state == Call.State.IncomingEarlyMedia) {
@@ -467,7 +468,6 @@ class CoreContext(
         }
         val rootCACertificateString = corePreferences.readRawResourceToString(R.raw.rootcaa)
 
-        Log.d("RootCA", "Root CA Certificate String: $rootCACertificateString")
         core.setRootCaData(rootCACertificateString)
         login(userId, localIp, transportType)
         core.setRootCaData(rootCACertificateString)
@@ -477,10 +477,10 @@ class CoreContext(
         val sdkVersion = context.getString(R.string.about_liblinphone_sdk_version)
         val sdkUserAgent = "$sdkVersion"
         core.setUserAgent(userAgent, sdkUserAgent)
-        android.util.Log.d("CoreContext", "Default Domain::" + corePreferences.defaultDomain)
+       /* android.util.Log.d("CoreContext", "Default Domain::" + corePreferences.defaultDomain)*/
         if (core.accountList.size > 0) {
-            android.util.Log.d("CoreContext", "accountList size::" + core.accountList.size)
-            android.util.Log.d("CoreContext", "accountList val::" + core.accountList.get(0))
+/*            android.util.Log.d("CoreContext", "accountList size::" + core.accountList.size)
+            android.util.Log.d("CoreContext", "accountList val::" + core.accountList.get(0))*/
         }
 
         for (account in core.accountList) {
@@ -551,7 +551,7 @@ class CoreContext(
 
     private fun login(userId: String, localIp: String, transportType: TransportType) {
         val authInfo = Factory.instance().createAuthInfo(userId, null, null, null, null, null, null)
-        Log.e("login()", "sip:$userId@$localIp")
+      //  Log.e("login()", "sip:$userId@$localIp")
         val params = core.createAccountParams()
         val identity = Factory.instance().createAddress("sip:$userId@$localIp")
         params.identityAddress = identity
@@ -790,7 +790,7 @@ class CoreContext(
             myCallStateChangeListener?.callError("Network unreachable", 500)
             return
         }
-        Log.e("start call::address ::" + address)
+      //  Log.e("start call::address ::" + address)
 
         // callParams?.fromHeader = "919818751528"
 

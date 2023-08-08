@@ -481,7 +481,6 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
 
     fun registerUserForLinphone(context: Context) {
         val userId: String = "919711667661"
-        Log.d("DialerActivity", "Register user with user ID : $userId")
         LinphoneApplication.ensureCoreExists(context, false, null, false)
         val ip = "sip.linphone.org"//"192.168.1.63"
         LinphoneApplication.startCore("", userId, ip, 2)
