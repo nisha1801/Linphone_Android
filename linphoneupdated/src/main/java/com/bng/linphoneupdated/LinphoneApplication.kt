@@ -35,6 +35,7 @@ import java.security.cert.CertificateFactory
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
+
 class LinphoneApplication {
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -53,15 +54,17 @@ class LinphoneApplication {
         }
 
         @JvmStatic
-        public fun createConfig(context: Context) {
+        public fun createConfig(
+            context: Context, userAgent: String, userId: String, localIp: String, transportType: Int
+        ) {
             if (::corePreferences.isInitialized) {
                 return
             }
 
-            Factory.instance().setLogCollectionPath(context.filesDir.absolutePath)
+            // Factory.instance().setLogCollectionPath(context.filesDir.absolutePath)
             Factory.instance().enableLogCollection(LogCollectionState.Enabled)
             // For VFS
-           // Factory.instance().setCacheDir(context.cacheDir.absolutePath)
+            // Factory.instance().setCacheDir(context.cacheDir.absolutePath)
 
             corePreferences = CorePreferences(context)
             corePreferences.copyAssetsFromPackage()
@@ -79,6 +82,8 @@ class LinphoneApplication {
                 Factory.instance().loggingService.setLogLevel(LogLevel.Message)
             }
             ensureCoreExists(context)
+            startCore(userAgent, userId, localIp, transportType)
+
         }
 
         @JvmStatic
@@ -100,7 +105,7 @@ class LinphoneApplication {
                 address!!.transport = TransportType.Tls
             }
             if (address == null) {
-             /*   Log.e("[Context] Failed to parse $stringAddress", "abort outgoing call")*/
+                /*   Log.e("[Context] Failed to parse $stringAddress", "abort outgoing call")*/
                 //    callErrorMessageResourceId.value = Event(context.getString(org.linphone.core.R.string.call_error_network_unreachable))
                 return
             }
@@ -132,7 +137,7 @@ class LinphoneApplication {
             }
         }
 
-         fun pauseOrResumeCall(pause: Boolean) {
+        fun pauseOrResumeCall(pause: Boolean) {
             try {
                 if (coreContext.core.callsNb == 0) return
                 val call =
