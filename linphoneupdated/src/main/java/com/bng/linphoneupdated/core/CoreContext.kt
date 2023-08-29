@@ -358,6 +358,10 @@ class CoreContext(
         core.removeListener(listener)
     }
 
+    fun terminateAllCalls() {
+        core.terminateAllCalls()
+    }
+
     fun start(userAgent: String, userId: String, localIp: String, transportType: TransportType) {
         Log.i("[Context] Starting")
 
