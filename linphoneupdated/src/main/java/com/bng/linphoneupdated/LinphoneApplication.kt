@@ -55,7 +55,7 @@ class LinphoneApplication {
 
         @JvmStatic
         public fun createConfig(
-            context: Context, userAgent: String, userId: String, localIp: String, transportType: Int
+            context: Context
         ) {
             if (::corePreferences.isInitialized) {
                 return
@@ -82,7 +82,7 @@ class LinphoneApplication {
                 Factory.instance().loggingService.setLogLevel(LogLevel.Message)
             }
             ensureCoreExists(context)
-            startCore(userAgent, userId, localIp, transportType)
+          //  startCore(userAgent, userId, localIp, transportType)
 
         }
 

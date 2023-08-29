@@ -22,6 +22,7 @@ package com.bng.linphoneupdated.notifications
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.Service.STOP_FOREGROUND_REMOVE
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -364,7 +365,7 @@ class NotificationsManager(private val context: Context) {
                 Log.i("[Notifications Manager] Stopping service as foreground [$currentForegroundServiceNotificationId]")
                 currentForegroundServiceNotificationId = 0
             }
-            service?.stopForeground(true)
+            service?.stopForeground( STOP_FOREGROUND_REMOVE)
         }
     }
 

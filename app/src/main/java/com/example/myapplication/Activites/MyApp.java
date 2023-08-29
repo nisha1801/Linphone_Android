@@ -44,7 +44,7 @@ public class MyApp extends Application {
         super.onCreate();
         mContext = getApplicationContext();
 
-        LinphoneApplication.Companion.createConfig(mContext);
+      //  LinphoneApplication.Companion.createConfig(mContext);
     }
 
     @Override

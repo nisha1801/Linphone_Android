@@ -34,7 +34,7 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         setContentView(R.layout.dialer_layout)
-        createConfig(this)
+       // createConfig(this)
 
         numEditText = findViewById(R.id.numedittext)
         btnclearnum = findViewById(R.id.clearnumber)
