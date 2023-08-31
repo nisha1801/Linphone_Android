@@ -472,7 +472,7 @@ class CoreContext(
         }
         val rootCACertificateString = corePreferences.readRawResourceToString(R.raw.rootcaa)
 
-        core.setRootCaData(rootCACertificateString)
+       // core.setRootCaData(rootCACertificateString)
         login(userId, localIp, transportType)
         core.setRootCaData(rootCACertificateString)
         // initUserCertificates()
