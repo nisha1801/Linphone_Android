@@ -318,9 +318,11 @@ class CoreContext(
         }
 
         core = Factory.instance().createCoreWithConfig(coreConfig, context)
-      //  core.sessionExpiresMinValue = 120
-      //  core.sessionExpiresValue = 120
-        core.sipTransportTimeout = 30000
+        //  core.sessionExpiresMinValue = 120
+        //  core.sessionExpiresValue = 120
+      //  core.sipTransportTimeout = 30000
+        core.isRetransmissionOnNackEnabled = true
+        core.isSdp200AckEnabled = true
 
 
         //  core.rootCa = corePreferences.rootCAPath
@@ -367,6 +369,10 @@ class CoreContext(
         core.clearProxyConfig()
         core.clearCallLogs()
         core.stop()
+    }
+
+    fun enableNetworkRechable(){
+        core.setSipNetworkReachable(true)
     }
 
     fun start(userAgent: String, userId: String, localIp: String, transportType: TransportType) {
@@ -480,7 +486,7 @@ class CoreContext(
         }
         val rootCACertificateString = corePreferences.readRawResourceToString(R.raw.rootcaa)
 
-       // core.setRootCaData(rootCACertificateString)
+        // core.setRootCaData(rootCACertificateString)
         login(userId, localIp, transportType)
         core.setRootCaData(rootCACertificateString)
         // initUserCertificates()
