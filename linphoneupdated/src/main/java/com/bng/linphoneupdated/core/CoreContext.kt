@@ -318,8 +318,8 @@ class CoreContext(
         }
 
         core = Factory.instance().createCoreWithConfig(coreConfig, context)
-        core.sessionExpiresMinValue = 120
-        core.sessionExpiresValue = 120
+      //  core.sessionExpiresMinValue = 120
+      //  core.sessionExpiresValue = 120
         core.sipTransportTimeout = 30000
 
 
