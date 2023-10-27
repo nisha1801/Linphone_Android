@@ -236,7 +236,6 @@ class CoreContext(
                 }
             } else if (state == Call.State.End || state == Call.State.Error || state == Call.State.Released) {
                 if (state == Call.State.Error) {
-
                     myCallStateChangeListener?.callError(message, call.errorInfo.protocolCode)
                     myCallStateChangeListener = null
 
@@ -319,6 +318,11 @@ class CoreContext(
         }
 
         core = Factory.instance().createCoreWithConfig(coreConfig, context)
+        core.sessionExpiresMinValue = 120
+        core.sessionExpiresValue = 120
+        core.sipTransportTimeout = 30000
+
+
         //  core.rootCa = corePreferences.rootCAPath
         //  core.setRootCaData(corePreferences.readRawResourceToString(R.raw.rootcaa))
         // core.rootCa = corePreferences.readRawResourceToString(R.raw.rootcaa)
@@ -360,6 +364,9 @@ class CoreContext(
 
     fun terminateAllCalls() {
         core.terminateAllCalls()
+        core.clearProxyConfig()
+        core.clearCallLogs()
+        core.stop()
     }
 
     fun start(userAgent: String, userId: String, localIp: String, transportType: TransportType) {
@@ -437,6 +444,7 @@ class CoreContext(
     fun refreshRegister() {
         core.refreshRegisters()
     }
+
 
     private fun configureCore(
         userAgent: String, userId: String, localIp: String, transportType: TransportType
@@ -721,6 +729,8 @@ class CoreContext(
     fun terminateCall(call: Call) {
         Log.i("[Context] Terminating call $call")
         call.terminate()
+
+
     }
 
     fun hangUp() {
@@ -729,7 +739,6 @@ class CoreContext(
         // If the call state isn't paused, we can get it using core.currentCall
         val call = if (core.currentCall != null) core.currentCall else core.calls[0]
         call ?: return
-
         // Terminating a call is quite simple
         call.terminate()
     }
