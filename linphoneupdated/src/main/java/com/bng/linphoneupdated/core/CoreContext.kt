@@ -323,7 +323,8 @@ class CoreContext(
         //  core.sipTransportTimeout = 30000
         core.isRetransmissionOnNackEnabled = true
         core.isSdp200AckEnabled = true
-        core.useRfc2833ForDtmf = true
+     //   core.useRfc2833ForDtmf = true
+        core.useInfoForDtmf = true
 
         //  core.rootCa = corePreferences.rootCAPath
         //  core.setRootCaData(corePreferences.readRawResourceToString(R.raw.rootcaa))
