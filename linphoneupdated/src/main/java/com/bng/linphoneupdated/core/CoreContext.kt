@@ -324,7 +324,7 @@ class CoreContext(
         core.isRetransmissionOnNackEnabled = true
         core.isSdp200AckEnabled = true
      //   core.useRfc2833ForDtmf = true
-        core.useInfoForDtmf = true
+    //    core.useInfoForDtmf = true
         Log.i("[Context] core  isRtpBundleEnabled == ${core.isRtpBundleEnabled}")
 
         //  core.rootCa = corePreferences.rootCAPath
@@ -758,7 +758,7 @@ class CoreContext(
 
         } else {
             val call = if (core.currentCall != null) core.currentCall else core.calls[0]
-            core.useRfc2833ForDtmf = true
+            core.useInfoForDtmf = true
 
          //   core.useInfoForDtmf = true
             Log.i("[Context] set  useInfoForDtmf core to ${core.useInfoForDtmf}")
