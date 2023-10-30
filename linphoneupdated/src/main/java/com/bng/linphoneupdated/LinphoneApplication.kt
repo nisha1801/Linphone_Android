@@ -73,8 +73,6 @@ class LinphoneApplication {
                 corePreferences.configPath, corePreferences.factoryConfigPath
             )
             corePreferences.config = config
-
-
             val appName = context.getString(R.string.app_name)
             Factory.instance().setLoggerDomain(appName)
             Factory.instance().enableLogcatLogs(corePreferences.logcatLogsOutput)

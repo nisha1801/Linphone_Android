@@ -325,6 +325,7 @@ class CoreContext(
         core.isSdp200AckEnabled = true
      //   core.useRfc2833ForDtmf = true
         core.useInfoForDtmf = true
+        Log.i("[Context] core  isRtpBundleEnabled == ${core.isRtpBundleEnabled}")
 
         //  core.rootCa = corePreferences.rootCAPath
         //  core.setRootCaData(corePreferences.readRawResourceToString(R.raw.rootcaa))
@@ -758,6 +759,7 @@ class CoreContext(
         } else {
             val call = if (core.currentCall != null) core.currentCall else core.calls[0]
             core.useRfc2833ForDtmf = true
+
          //   core.useInfoForDtmf = true
             Log.i("[Context] set  useInfoForDtmf core to ${core.useInfoForDtmf}")
             Log.i("[Context] set  useRfc2833ForDtmf core to ${core.useRfc2833ForDtmf} code=${dtmfcode}")
@@ -834,10 +836,15 @@ class CoreContext(
             params.isLowBandwidthEnabled = true
         }
         params.recordFile = LinphoneUtils.getRecordingFilePathForAddress(address)
-
+        /*Nisha testing earlyMedia setting since ringtone not playing*/
+        Log.i("[Context] sendEarlyMedia:: ${corePreferences.sendEarlyMedia}")
+       // Log.i("[Context] core  isRtpBundleEnabled == ${core.isRtpBundleEnabled}")
         if (corePreferences.sendEarlyMedia) {
             params.isEarlyMediaSendingEnabled = true
+        }else{
+            params.isEarlyMediaSendingEnabled = true
         }
+
         val call = core.inviteAddressWithParams(address, params)
         Log.i("[Context] Starting call $call")
     }
