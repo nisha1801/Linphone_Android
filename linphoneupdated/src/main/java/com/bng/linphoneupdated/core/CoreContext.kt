@@ -321,9 +321,9 @@ class CoreContext(
         //  core.sessionExpiresMinValue = 120
         //  core.sessionExpiresValue = 120
         //  core.sipTransportTimeout = 30000
-       // core.isRetransmissionOnNackEnabled = true
+        core.isRetransmissionOnNackEnabled = true
         core.isSdp200AckEnabled = true
-
+        core.useRfc2833ForDtmf = true
 
         //  core.rootCa = corePreferences.rootCAPath
         //  core.setRootCaData(corePreferences.readRawResourceToString(R.raw.rootcaa))
