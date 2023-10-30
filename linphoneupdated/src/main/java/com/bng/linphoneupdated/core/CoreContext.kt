@@ -757,8 +757,8 @@ class CoreContext(
 
         } else {
             val call = if (core.currentCall != null) core.currentCall else core.calls[0]
-            core.useRfc2833ForDtmf = false
-            core.useInfoForDtmf = true
+            core.useRfc2833ForDtmf = true
+         //   core.useInfoForDtmf = true
             Log.i("[Context] set  useInfoForDtmf core to ${core.useInfoForDtmf}")
             Log.i("[Context] set  useRfc2833ForDtmf core to ${core.useRfc2833ForDtmf} code=${dtmfcode}")
 
