@@ -369,11 +369,11 @@ class CoreContext(
         for (payloadType in audioPayloadTypes) {
             val mime = payloadType.mimeType
             // val codecName = payloadType.mi
-            /*       if (payloadType.mimeType.equals("PCMU", ignoreCase = true)) {
+                   if (payloadType.mimeType.equals("PCMU", ignoreCase = true)) {
                        payloadType.enable(true) // Enable G.711 PCMU codec
                    } else {
                        payloadType.enable(false)
-                   }*/
+                   }
             val enabled = payloadType.enabled()
             //  println("MIME Type: $mime")
             //  println("Enabled: $enabled")
