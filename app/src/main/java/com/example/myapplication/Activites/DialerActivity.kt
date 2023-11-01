@@ -34,7 +34,7 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         setContentView(R.layout.dialer_layout)
-       // createConfig(this)
+        createConfig(this)
 
         numEditText = findViewById(R.id.numedittext)
         btnclearnum = findViewById(R.id.clearnumber)
@@ -62,6 +62,7 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
         findViewById<View>(R.id.pluszero).setOnClickListener(this)
         findViewById<View>(R.id.btnzero).setOnClickListener(this)
         findViewById<View>(R.id.btnhash).setOnClickListener(this)
+        findViewById<View>(R.id.dialercalldecline).setOnClickListener(this)
         zeroplusLayout!!.setOnClickListener(this)
         btnaddnum!!.setOnClickListener(this)
         btnclearnum!!.setOnClickListener(this)
@@ -164,6 +165,9 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
             }
             R.id.savenumber -> addContactIntent()
             R.id.dialercallbtn -> if (!numEditText!!.text.toString().isEmpty()) {
+
+              //  coreContext.terminateAllCalls()
+             //   coreContext.notificationsManager.destroy()
                 var number = numEditText!!.text.toString()
                 if (number.length > 3) {
                     number = getFormattedNumberForCall(number)!!
@@ -174,6 +178,7 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
                 val address = "sip:56503919711667661" + "@52.37.177.101:1183"
                 coreContext.setUserAgent("{ccode=+91, user=ANDROID}")
                 LinphoneApplication.startCall(address, 2)
+
                 /* address =
                      "sip:" + sharedPrefs.getBgShortCode() + dummy + "@" + sharedPrefs.getCallingServerIp() + ":" + sharedPrefs.getCallingServerPort()
                  val audioURL = selectedItemBackground?.audioUrl
@@ -182,6 +187,10 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
                 //coreContext.setUserAgent(userAgent)
                 // checkAndInitiateCall(numEditText!!.text.toString(), contactName)
                 //  }
+            }
+
+            R.id.dialercalldecline -> {
+                coreContext.hangUp()
             }
         }
     }
@@ -480,9 +489,12 @@ class DialerActivity : AppCompatActivity(), OnClickListener, CoreCallStateChange
     }
 
     fun registerUserForLinphone(context: Context) {
-        val userId: String = "919711667661"
+        val userId: String = "919898989898"
         LinphoneApplication.ensureCoreExists(context, false, null, false)
         val ip = "sip.linphone.org"//"192.168.1.63"
+      /*  if (coreContext != null) {
+            coreContext.stopCore()
+        }*/
         LinphoneApplication.startCore("", userId, ip, 2)
         // DebugLogManager.getInstance().logsForDebugging(TAG, "registerUser() called")
     }

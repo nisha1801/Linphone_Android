@@ -51,8 +51,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
-        tools:targetApi="31">
+        android:theme="@style/Theme.MyApplication">
         <activity
             android:name=".Activites.DialerActivity"
             android:exported="true">
@@ -60,11 +59,27 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.DIAL" />
+                <action android:name="android.intent.action.CALL" />
+                <action android:name="android.intent.action.CALL_BUTTON" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tel" />
+                <data android:scheme="sip" />
+                <data android:scheme="sips" />
+                <data android:scheme="linphone" />
+                <data android:scheme="sip-linphone" />
+                <data android:scheme="linphone-config" />
+            </intent-filter>
+
         </activity>
 
         <activity
             android:name=".Activites.MainActivity"
             android:exported="true"></activity>
+
     </application>
 
 </manifest>

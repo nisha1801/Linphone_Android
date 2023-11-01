@@ -34,7 +34,6 @@ import com.bng.linphoneupdated.LinphoneApplication.Companion.coreContext
 import kotlin.math.min
 import org.linphone.core.Address
 import org.linphone.core.ChatRoom
-import org.linphone.core.ChatRoomCapabilities
 import org.linphone.core.Friend
 import org.linphone.core.tools.Log
 import org.linphone.mediastream.Version
@@ -74,7 +73,7 @@ class ShortcutsHelper(val context: Context) {
             val peerAddress = chatRoom.peerAddress.asStringUriOnly()
             val id = LinphoneUtils.getChatRoomId(chatRoom.localAddress, chatRoom.peerAddress)
 
-            try {
+         /*   try {
                 val categories: ArraySet<String> = ArraySet()
                 categories.add(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
 
@@ -82,18 +81,18 @@ class ShortcutsHelper(val context: Context) {
                 val subject: String
                 val icon: IconCompat
                 if (chatRoom.hasCapability(ChatRoomCapabilities.Basic.toInt())) {
-                /*    val contact =
+                *//*    val contact =
                         coreContext.contactsManager.findContactByAddress(chatRoom.peerAddress)
                     val person = contact?.getPerson()
                     if (person != null) {
                         personsList.add(person)
                     }
 
-                    icon = person?.icon ?: coreContext.contactsManager.contactAvatar*/
+                    icon = person?.icon ?: coreContext.contactsManager.contactAvatar*//*
                    // subject = contact?.name ?: LinphoneUtils.getDisplayName(chatRoom.peerAddress)
                 } else if (chatRoom.hasCapability(ChatRoomCapabilities.OneToOne.toInt()) && chatRoom.participants.isNotEmpty()) {
                     val address = chatRoom.participants.first().address
-                /*    val contact =
+                *//*    val contact =
                         coreContext.contactsManager.findContactByAddress(address)
                     val person = contact?.getPerson()
                     if (person != null) {
@@ -101,14 +100,14 @@ class ShortcutsHelper(val context: Context) {
                     }
 
                     subject = contact?.name ?: LinphoneUtils.getDisplayName(address)
-                    icon = person?.icon ?: coreContext.contactsManager.contactAvatar*/
+                    icon = person?.icon ?: coreContext.contactsManager.contactAvatar*//*
                 } else {
                     for (participant in chatRoom.participants) {
                       //  val contact =
-                      /*      coreContext.contactsManager.findContactByAddress(participant.address)
+                      *//*      coreContext.contactsManager.findContactByAddress(participant.address)
                         if (contact != null) {
                             personsList.add(contact.getPerson())
-                        }*/
+                        }*//*
                     }
                     subject = chatRoom.subject.orEmpty()
                   //  icon = coreContext.contactsManager.groupAvatar
@@ -128,8 +127,8 @@ class ShortcutsHelper(val context: Context) {
                 intent.putExtra("LocalSipUri", localAddress)
 
                 return ShortcutInfoCompat.Builder(context, id)
-                 /*   .setShortLabel(subject)
-                    .setIcon(icon)*/
+                 *//*   .setShortLabel(subject)
+                    .setIcon(icon)*//*
                     .setPersons(persons)
                     .setCategories(categories)
                     .setIntent(intent)
@@ -139,7 +138,7 @@ class ShortcutsHelper(val context: Context) {
             } catch (e: Exception) {
                 Log.e("[Shortcuts Helper] createChatRoomShortcut for id [$id] exception: $e")
             }
-
+*/
             return null
         }
 

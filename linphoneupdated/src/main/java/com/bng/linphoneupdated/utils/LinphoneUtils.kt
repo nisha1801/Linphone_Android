@@ -77,7 +77,7 @@ class LinphoneUtils {
             val remoteContact = call.remoteContact
             val conferenceAddress = if (call.dir == Call.Dir.Incoming) {
                 if (remoteContact != null)
-                    coreContext.core.interpretUrl(remoteContact, false)
+                    coreContext.core.interpretUrl(remoteContact/*, false*/)
                 else
                     null
             } else {
@@ -86,6 +86,7 @@ class LinphoneUtils {
             return conferenceAddress
         }
 
+/*
         fun getConferenceSubject(conference: Conference): String? {
             return if (conference.subject.isNullOrEmpty()) {
                 val conferenceInfo = coreContext.core.findConferenceInformationFromUri(conference.conferenceAddress)
@@ -102,15 +103,18 @@ class LinphoneUtils {
                 conference.subject
             }
         }
+*/
 
+/*
         fun isEndToEndEncryptedChatAvailable(): Boolean {
             val core = coreContext.core
             return core.isLimeX3DhEnabled &&
                 (core.limeX3DhServerUrl != null || core.defaultAccount?.params?.limeServerUrl != null) &&
                 core.defaultAccount?.params?.conferenceFactoryUri != null
         }
+*/
 
-        fun isGroupChatAvailable(): Boolean {
+      /*  fun isGroupChatAvailable(): Boolean {
             val core = coreContext.core
             return core.defaultAccount?.params?.conferenceFactoryUri != null
         }
@@ -119,8 +123,8 @@ class LinphoneUtils {
             val core = coreContext.core
             return core.defaultAccount?.params?.audioVideoConferenceFactoryAddress != null
         }
-
-        fun createOneToOneChatRoom(participant: Address, isSecured: Boolean = false): ChatRoom? {
+*/
+/*        fun createOneToOneChatRoom(participant: Address, isSecured: Boolean = false): ChatRoom? {
             val core: Core = coreContext.core
             val defaultAccount = core.defaultAccount
 
@@ -151,7 +155,7 @@ class LinphoneUtils {
             }
             chatRoomParams.subject = "Meeting invitation" // Won't be used
             return chatRoomParams
-        }
+        }*/
 
         fun deleteFilesAttachedToEventLog(eventLog: EventLog) {
             if (eventLog.type == EventLog.Type.ConferenceChatMessage) {
@@ -236,7 +240,7 @@ class LinphoneUtils {
             return "${localSipUri.asStringUriOnly()}~${remoteSipUri.asStringUriOnly()}"
         }
 
-        fun getAccountsNotHidden(): List<Account> {
+    /*    fun getAccountsNotHidden(): List<Account> {
             val list = arrayListOf<Account>()
 
             for (account in coreContext.core.accountList) {
@@ -246,7 +250,7 @@ class LinphoneUtils {
             }
 
             return list
-        }
+        }*/
 
         fun applyInternationalPrefix(): Boolean {
             val account = coreContext.core.defaultAccount

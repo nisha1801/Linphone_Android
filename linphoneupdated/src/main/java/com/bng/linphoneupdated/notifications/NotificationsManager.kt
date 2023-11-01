@@ -365,7 +365,7 @@ class NotificationsManager(private val context: Context) {
                 Log.i("[Notifications Manager] Stopping service as foreground [$currentForegroundServiceNotificationId]")
                 currentForegroundServiceNotificationId = 0
             }
-            service?.stopForeground( STOP_FOREGROUND_REMOVE)
+            service?.stopForeground(STOP_FOREGROUND_REMOVE )
         }
     }
 

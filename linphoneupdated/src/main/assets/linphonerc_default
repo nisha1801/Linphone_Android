@@ -1,6 +1,6 @@
 [net]
-download_bw=380
-upload_bw=380
+download_bw=0
+upload_bw=0
 
 [sip]
 use_info=0
@@ -8,13 +8,13 @@ use_ipv6=0
 keepalive_period=30000
 rls_uri=sip:rls@sip1.linphone.org
 use_rls_presence=1
+sip_random_port=1
 
 [video]
 size=qvga
 
 [audio]
 android_disable_audio_focus_requests=0
-android_pause_calls_when_audio_focus_lost=0
 
 [app]
 tunnel=disabled
