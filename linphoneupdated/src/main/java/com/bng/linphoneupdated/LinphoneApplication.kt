@@ -25,6 +25,7 @@ import com.bng.linphoneupdated.core.*
 import com.bng.linphoneupdated.utils.AudioRouteUtils
 import com.bng.linphoneupdated.utils.LinphoneUtils
 import org.linphone.core.*
+import org.linphone.core.tools.Log
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -80,16 +81,19 @@ class LinphoneApplication {
                 Factory.instance().loggingService.setLogLevel(LogLevel.Message)
             }
             ensureCoreExists(context)
-          //  startCore(userAgent, userId, localIp, transportType)
+            //  startCore(userAgent, userId, localIp, transportType)
 
         }
 
         @JvmStatic
         public fun startCall(to: String, transportType: Int) {
             var stringAddress = to.trim()
+            Log.w("Log check start call address before  interpretUrl $stringAddress")
+
             val address: Address? = coreContext.core.interpretUrl(
                 stringAddress, LinphoneUtils.applyInternationalPrefix()
             )
+            Log.w("Log check start call address after interpretUrl $address")
 
             if (transportType == 0) {
                 address!!.transport = TransportType.Udp
