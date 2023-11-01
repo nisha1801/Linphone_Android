@@ -325,6 +325,8 @@ class CoreContext(
         //core.isSdp200AckEnabled = true
         //   core.useRfc2833ForDtmf = true
         //    core.useInfoForDtmf = true
+        core.isIpv6Enabled = false
+
         Log.i("--------linphone core initialization------------Log check")
         Log.i("Log check sendEarlyMedia:: ${corePreferences.sendEarlyMedia}")
         Log.i("Log check set  useInfoForDtmf core to ${core.useInfoForDtmf}")
@@ -349,6 +351,7 @@ class CoreContext(
         Log.i("Log check core  isMediaEncryptionMandatory == ${core.isMediaEncryptionMandatory}")
         Log.i("Log check core  dnsSetByApp == ${core.dnsSetByApp}")
         Log.i("Log check core  defaultOutputAudioDevice == ${core.defaultOutputAudioDevice}")
+        Log.i("Log check core  enablekeepalive == ${core.isKeepAliveEnabled}")
 
         //  core.rootCa = corePreferences.rootCAPath
         //  core.setRootCaData(corePreferences.readRawResourceToString(R.raw.rootcaa))
@@ -854,11 +857,12 @@ class CoreContext(
             params.isLowBandwidthEnabled = true
         }
         params.recordFile = LinphoneUtils.getRecordingFilePathForAddress(address)
+        core.isIpv6Enabled = false
         /*Nisha testing earlyMedia setting since ringtone not playing*/
         Log.i("-------------Log check ----------- startCall::")
 
         Log.i("Log check startCall:: ${address}")
-
+        Log.i("Log check core  enablekeepalive == ${core.isKeepAliveEnabled}")
         Log.i("Log check sendEarlyMedia:: ${corePreferences.sendEarlyMedia}")
         Log.i("Log check set  useInfoForDtmf core to ${core.useInfoForDtmf}")
         Log.i("Log check core  isRtpBundleEnabled == ${core.isRtpBundleEnabled}")
