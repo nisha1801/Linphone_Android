@@ -365,7 +365,6 @@ class CoreContext(
 
     fun printAvailableAudioCodecs(linphoneCore: Core) {
         val audioPayloadTypes = linphoneCore.audioPayloadTypes
-
         for (payloadType in audioPayloadTypes) {
             val mime = payloadType.mimeType
             // val codecName = payloadType.mi
