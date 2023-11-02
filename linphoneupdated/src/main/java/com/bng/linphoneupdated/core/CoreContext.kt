@@ -325,7 +325,7 @@ class CoreContext(
         //core.isSdp200AckEnabled = true
         //   core.useRfc2833ForDtmf = true
         //    core.useInfoForDtmf = true
-        core.isIpv6Enabled = false
+       // core.isIpv6Enabled = false
 
         Log.i("--------linphone core initialization------------Log check")
         Log.i("Log check sendEarlyMedia:: ${corePreferences.sendEarlyMedia}")
@@ -375,9 +375,9 @@ class CoreContext(
                        payloadType.enable(false)
                    }
             val enabled = payloadType.enabled()
-            //  println("MIME Type: $mime")
-            //  println("Enabled: $enabled")
-            //  println("------------------------")
+              println("MIME Type: $mime")
+              println("Enabled: $enabled")
+              println("------------------------")
         }
     }
 
