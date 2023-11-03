@@ -321,11 +321,13 @@ class CoreContext(
         //  core.sessionExpiresMinValue = 120
         //  core.sessionExpiresValue = 120
         //  core.sipTransportTimeout = 30000
-         core.isRetransmissionOnNackEnabled = true
+        core.isRetransmissionOnNackEnabled = true
         //core.isSdp200AckEnabled = true
         //   core.useRfc2833ForDtmf = true
         //    core.useInfoForDtmf = true
         core.isIpv6Enabled = false
+        core.verifyServerCn(false)
+        core.verifyServerCertificates(false)
 
         /*    Log.i("--------linphone core initialization------------Log check")
             Log.i("Log check sendEarlyMedia:: ${corePreferences.sendEarlyMedia}")
@@ -860,33 +862,33 @@ class CoreContext(
         core.isRetransmissionOnNackEnabled = true
 
         /*Nisha testing earlyMedia setting since ringtone not playing*/
-    /*    Log.i("-------------Log check ----------- startCall::")
+        /*    Log.i("-------------Log check ----------- startCall::")
 
-        Log.i("Log check startCall:: ${address}")
-        Log.i("Log check core  enablekeepalive == ${core.isKeepAliveEnabled}")
-        Log.i("Log check sendEarlyMedia:: ${corePreferences.sendEarlyMedia}")
-        Log.i("Log check set  useInfoForDtmf core to ${core.useInfoForDtmf}")
-        Log.i("Log check core  isRtpBundleEnabled == ${core.isRtpBundleEnabled}")
-        Log.i("Log check core  isMicEnabled == ${core.isMicEnabled}")
-        Log.i("Log check core  isIpv6Enabled == ${core.isIpv6Enabled}")
-        Log.i("Log check core  isAutoSendRingingEnabled == ${core.isAutoSendRingingEnabled}")
-        Log.i("Log check core  sessionExpiresMinValue == ${core.sessionExpiresMinValue}")
-        Log.i("Log check core  sessionExpiresValue == ${core.sessionExpiresValue}")
-        Log.i("Log check core  isZeroRtpPortForStreamInactiveEnabled == ${core.isZeroRtpPortForStreamInactiveEnabled}")
-        Log.i("Log check core  identity == ${core.identity}")
-        Log.i("Log check core  httpProxyPort == ${core.httpProxyPort}")
-        Log.i("Log check core  sipDscp == ${core.sipDscp}")
-        Log.i("Log check core  ringback == ${core.ringback}")
-        Log.i("Log check core  isNetworkReachable == ${core.isNetworkReachable}")
-        Log.i("Log check core  userData == ${core.config.userData}")
-        Log.i("Log check core  isRetransmissionOnNackEnabled == ${core.isRetransmissionOnNackEnabled}")
-        Log.i("Log check core  stunServer == ${core.stunServer}")
-        Log.i("Log check core  inCallTimeout == ${core.inCallTimeout}")
-        Log.i("Log check core  defaultAccount == ${core.defaultAccount}")
-        Log.i("Log check core  audioPort == ${core.audioPort}")
-        Log.i("Log check core  isMediaEncryptionMandatory == ${core.isMediaEncryptionMandatory}")
-        Log.i("Log check core  dnsSetByApp == ${core.dnsSetByApp}")
-        Log.i("Log check core  defaultOutputAudioDevice == ${core.defaultOutputAudioDevice}")*/
+            Log.i("Log check startCall:: ${address}")
+            Log.i("Log check core  enablekeepalive == ${core.isKeepAliveEnabled}")
+            Log.i("Log check sendEarlyMedia:: ${corePreferences.sendEarlyMedia}")
+            Log.i("Log check set  useInfoForDtmf core to ${core.useInfoForDtmf}")
+            Log.i("Log check core  isRtpBundleEnabled == ${core.isRtpBundleEnabled}")
+            Log.i("Log check core  isMicEnabled == ${core.isMicEnabled}")
+            Log.i("Log check core  isIpv6Enabled == ${core.isIpv6Enabled}")
+            Log.i("Log check core  isAutoSendRingingEnabled == ${core.isAutoSendRingingEnabled}")
+            Log.i("Log check core  sessionExpiresMinValue == ${core.sessionExpiresMinValue}")
+            Log.i("Log check core  sessionExpiresValue == ${core.sessionExpiresValue}")
+            Log.i("Log check core  isZeroRtpPortForStreamInactiveEnabled == ${core.isZeroRtpPortForStreamInactiveEnabled}")
+            Log.i("Log check core  identity == ${core.identity}")
+            Log.i("Log check core  httpProxyPort == ${core.httpProxyPort}")
+            Log.i("Log check core  sipDscp == ${core.sipDscp}")
+            Log.i("Log check core  ringback == ${core.ringback}")
+            Log.i("Log check core  isNetworkReachable == ${core.isNetworkReachable}")
+            Log.i("Log check core  userData == ${core.config.userData}")
+            Log.i("Log check core  isRetransmissionOnNackEnabled == ${core.isRetransmissionOnNackEnabled}")
+            Log.i("Log check core  stunServer == ${core.stunServer}")
+            Log.i("Log check core  inCallTimeout == ${core.inCallTimeout}")
+            Log.i("Log check core  defaultAccount == ${core.defaultAccount}")
+            Log.i("Log check core  audioPort == ${core.audioPort}")
+            Log.i("Log check core  isMediaEncryptionMandatory == ${core.isMediaEncryptionMandatory}")
+            Log.i("Log check core  dnsSetByApp == ${core.dnsSetByApp}")
+            Log.i("Log check core  defaultOutputAudioDevice == ${core.defaultOutputAudioDevice}")*/
         if (corePreferences.sendEarlyMedia) {
             params.isEarlyMediaSendingEnabled = true
         }
