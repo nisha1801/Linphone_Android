@@ -7,8 +7,6 @@
 [net]
 mtu=1300
 force_ice_disablement=0
-enable_nat_helper=1
-
 
 [sip]
 guess_hostname=1
