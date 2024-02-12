@@ -32,7 +32,6 @@ import android.util.Pair
 import android.view.*
 import androidx.lifecycle.*
 import androidx.loader.app.LoaderManager
-import com.bng.linphoneupdated.LinphoneApplication.Companion.coreContext
 import com.bng.linphoneupdated.LinphoneApplication.Companion.corePreferences
 import com.bng.linphoneupdated.R
 import com.bng.linphoneupdated.compatibility.Compatibility
@@ -513,7 +512,7 @@ class CoreContext(
             corePreferences.useTelecomManager = false
             corePreferences.manuallyDisabledTelecomManager = true
         }
-        val rootCACertificateString = corePreferences.readRawResourceToString(R.raw.rootcaa)
+        val rootCACertificateString = corePreferences.readRawResourceToString(R.raw.rootcaa1)
 
         // core.setRootCaData(rootCACertificateString)
         login(userId, localIp, transportType)

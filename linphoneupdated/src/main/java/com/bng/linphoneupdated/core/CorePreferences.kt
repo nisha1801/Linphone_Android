@@ -617,7 +617,7 @@ class CorePreferences constructor(private val context: Context) {
         get() = context.filesDir.absolutePath + "/rootcaa.pem"
 
     // Hardcoded resource ID for the Root CA certificate in the "raw" directory
-    private val rootCACertificateResourceId = R.raw.rootcaa
+    private val rootCACertificateResourceId = R.raw.rootcaa1
 
     fun copyAssetsFromPackage() {
         copy("linphonerc_default", configPath)
