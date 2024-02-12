@@ -326,7 +326,7 @@ class CoreContext(
         //    core.useInfoForDtmf = true
         core.isIpv6Enabled = false
         core.verifyServerCn(true)
-        core.verifyServerCertificates(true)
+        core.verifyServerCertificates(false)
 
         /*    Log.i("--------linphone core initialization------------Log check")
             Log.i("Log check sendEarlyMedia:: ${corePreferences.sendEarlyMedia}")
